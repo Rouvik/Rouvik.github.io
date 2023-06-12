@@ -4,8 +4,78 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About Me</title>
+  <!--Fonts-->
+  <link rel="stylesheet" href="./Fonts/Signika/Signika.css">
+  
+  <!--Icons-->
+  <link rel="stylesheet" href="./Fonts/material-symbols-rounded/material-symbols-rounded.css">
+  
+  <!--Styles-->
+  <link rel="stylesheet" href="./Styles/theme.css">
+  <link rel="stylesheet" href="./Styles/about.css">
 </head>
 <body>
-  <p>Unfortunately, I was not able to complete this page sorry 😅 </p>
+  <button class="viewMode" onclick="changeThemeMode(this)" mode="L">
+    &#xe518;
+  </button>
+  <div class="requestPortrait">
+    Please turn your device to portrait mode for best experience!📱🔄
+  </div>
+  
+  <div class="scroll-container">
+    <div class="card" animStyle="anim1">
+      <span class="typed">Welcome to my About page!</span>
+      <span class="cursor">|</span>
+      <p class="typed para" delay="2295">Who am I?</p>
+      <div class="showlater s-para" delay="2890">
+        <p>Full Name: Rouvik Maji</p>
+        <p>Age: 17+</p>
+        <p>Sex: Male</p>
+        <p>Nationality: Indian</p>
+        <p>Etc, etc...couldn't fill in any more!😅</p>
+      </div>
+      <p class="typed para" delay="2900">Scroll down ⬇️</p>
+    </div>
+    <div class="card">
+      <span class="typed">Studying in Vivekananda Mission School(Joka)</span>
+      <span class="cursor">|</span>
+      <p class="showlater para" delay="3485">
+        I am basically a science guy,
+        my stream is Sciences(Physics, Chemistry, Mathematics)
+        along with Computer Science💻🧪🧑‍🔬
+        <br><br>
+        <a href="https://vms.edu.in/home/">Vivekananda Mission School</a>
+      </p>
+    </div>
+    <div class="card">
+      <span class="typed">My first Programming Language was MS Logo</span>
+      <span class="cursor">|</span>
+      <p class="showlater para" delay="3570">
+        Yes, my journey began with MS Logo.
+        The first structured language I learnt was QBasic,
+        back in the 2012s this was the norm.
+        My journey then continued through HTML,
+        Java, JavaScript and later C/C++ around 2018.
+        <br><br>
+        <a href="https://en.m.wikipedia.org/wiki/MSWLogo">MS Logo</a>
+        <a href="https://en.m.wikipedia.org/wiki/QBasic">QBasic</a>
+        <a href="https://en.m.wikipedia.org/wiki/Java_(programming_language)">Java</a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">JavaScript</a>
+        <a href="https://en.m.wikipedia.org/wiki/C%2B%2B">C/C++</a>
+      </p>
+    </div>
+    <div class="card">
+      <span class="typed">That's all folks!</span>
+      <span class="cursor">|</span>
+      <p class="showlater para" delay="1615">
+        Now don't expect much from me...<br>
+        I am not a popular guy
+      </p>
+    </div>
+    
+  </div>
 </body>
+<script src="./JS/typr.js"></script>
+<script src="./JS/about.js"></script>
+<script src="./JS/theme.js"></script>
 </html>

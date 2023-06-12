@@ -1,0 +1,121 @@
+body {
+  background-color: var(--mcolor);
+  transition: 0.5s;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+a::before {
+  content: "🔗 ";
+}
+
+a {
+  text-decoration: none;
+  color: #848EFF;
+  font-size: 80%;
+  border-bottom: 2px dashed #FB46EA;
+}
+
+.scroll-container {
+  max-height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: mandatory;
+  scroll-snap-points-y: repeat(100vh);
+  scroll-snap-type: y mandatory;
+}
+
+.card {
+  height: 100vh;
+  width: 100vw;
+  scroll-snap-align: start;
+  transition: 2s;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.cursor {
+  background-color: var(--mcontrast);
+  color: transparent !important;
+  animation: blink 0.5s step-end infinite alternate;
+}
+
+.typed {
+  visibility: hidden;
+}
+
+.para {
+  color: var(--mcontrast);
+  font-size: 200%;
+  font-family: 'Signika Negative';
+}
+
+.s-para {
+  color: var(--mcontrast);
+  font-size: 150%;
+  font-family: 'Signika Negative';
+}
+
+.showlater {
+  opacity: 0;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.anim1 span {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  font-size: 50px;
+  color: var(--mcontrast);
+}
+
+.null {
+  /* Do nothing */
+}
+
+@keyframes blink {
+  to, from {
+    background-color: transparent;
+  }
+  
+  50% {
+    background-color: var(--mcontrast);
+  }
+}
+
+@keyframes setVisible {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.requestPortrait {
+  display: none;
+}
+
+@media only screen and (orientation:landscape) {
+  .requestPortrait {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: #1C1E4B;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 400%;
+  }
+  
+  .scroll-container {
+    display: none;
+  }
+}

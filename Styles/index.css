@@ -1,0 +1,174 @@
+body {
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+    background-color: var(--mcolor);
+    transition: 0.5s;
+}
+
+.head {
+    width: 100vw;
+    height: 20vh;
+    background: linear-gradient(-45deg, #222E3F, black);
+    box-shadow: 0px 0px 10px 10px #222E3F;
+    text-shadow: 4px 4px 10px #FF1E8C;
+
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 600%;
+    fill: transparent;
+    stroke: white;
+    stroke-dasharray: 15%;
+    animation: b 2s ease forwards 2.5s;
+}
+
+.head text {
+  font-size: 100%;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+.head text:nth-child(1) {
+    animation: a 9s ease forwards;
+}
+
+.head text:nth-child(2) {
+    animation: a 9s ease forwards 0.5s;
+}
+
+.head text:nth-child(3) {
+    animation: a 9s ease forwards 1s;
+}
+
+.head text:nth-child(4) {
+    animation: a 9s ease forwards 1.5s;
+}
+
+.head text:nth-child(5) {
+    animation: a 9s ease forwards 2s;
+}
+
+.head text:nth-child(6) {
+    animation: a 9s ease forwards 2.5s;
+}
+
+@keyframes a {
+    to {
+        stroke-dasharray: 120%;
+    }
+}
+
+@keyframes b {
+    to {
+        fill: white;
+    }
+}
+
+.intro {
+  backdrop-filter: blur(5px);
+}
+
+.intro p {
+  font-size: 50px;
+  color: var(--mcontrast);
+  font-family: 'Signika Negative';
+}
+
+.intro p span {
+  animation: blink 0.5s step-end infinite alternate;
+}
+
+@keyframes blink {
+  from, to {
+    color: transparent;
+  }
+  
+  50% {
+    color: var(--mcontrast);
+  }
+}
+
+.container {
+    padding-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, calc(100vw / 3));
+    grid-template-rows: repeat(auto, 90px);
+    align-items: center;
+}
+
+.container div {
+    width: 20vw;
+    height: 20vw;
+    line-height: 10vw;
+    margin: 8%;
+    padding: 8%;
+
+    max-width: 25vw;
+    max-height: 25vw;
+
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+
+    border-radius: 15px;
+    color: white;
+    box-shadow: 0px 0px 10px 5px var(--mcolorrgb);
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(5px);
+    transition: 1s;
+}
+
+.container div a {
+  text-decoration: none;
+}
+
+.container div p {
+  color: var(--mcontrast);
+}
+
+.container div:hover {
+    width: 22vw;
+    height: 22vw;
+}
+
+@media (max-width: 600px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .container div {
+    width: 40vw;
+    height: 40vw;
+    line-height: 20vw;
+  }
+  
+  .container div:hover {
+    width: 42vw;
+    height: 42vw;
+  }
+}
+
+.rcolor-blue:hover {
+    background: rgba(144, 0, 255, 0.5);
+}
+
+.rcolor-red:hover {
+    background: rgba(255, 0, 76, 0.5);
+}
+
+.rcolor-golden:hover {
+    background: rgba(255, 204, 0, 0.5);
+}
+
+.rcolor-green:hover {
+    background: rgba(94, 255, 0, 0.5);
+}
+
+canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -999;
+}
