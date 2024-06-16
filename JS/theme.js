@@ -1,12 +1,6 @@
 const THEME_BUTTON = document.querySelector('.viewMode');
 
-function changeThemeMode(sel, theme='auto') {
-  if(theme == 'light') {
-    sel.setAttribute('mode', 'D');
-  } else if (theme == 'dark'){
-    sel.setAttribute('mode', 'L');
-  }
-  
+function changeThemeMode(sel) {
   let root = document.querySelector(':root');
   if (sel.getAttribute('mode') == 'D') {
     sel.setAttribute('mode', 'L');
@@ -14,7 +8,7 @@ function changeThemeMode(sel, theme='auto') {
     root.style.setProperty('--mcolor', 'white');
     root.style.setProperty('--mcolorrgb', 'rgba(0, 0, 0, 0.2)');
     root.style.setProperty('--mcontrast', 'black');
-    if(!!Circle) {
+    if (typeof Circle === 'function') {
       Circle.setColor('rgb(0, 0, 0)');
     }
   } else {
@@ -23,25 +17,25 @@ function changeThemeMode(sel, theme='auto') {
     root.style.setProperty('--mcolor', 'black');
     root.style.setProperty('--mcolorrgb', 'rgba(255, 255, 255, 0.2)');
     root.style.setProperty('--mcontrast', 'white');
-    if (!!Circle) {
+    if (typeof Circle === 'function') {
       Circle.setColor('rgb(255, 255, 255)');
     }
   }
 }
 
 // initial theme setup
-if(window.matchMedia('(prefers-color-scheme: dark)').matches) {
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
   changeThemeMode(THEME_BUTTON, 'dark');
 } else {
   changeThemeMode(THEME_BUTTON, 'light');
 }
 
 window.matchMedia('(prefers-color-scheme: dark)')
-.addListener(e => {
-  console.log(e);
-  if(e.matches) {
-    changeThemeMode(THEME_BUTTON, 'dark');
-  } else {
-    changeThemeMode(THEME_BUTTON, 'light');
-  }
-});
+  .addListener(e => {
+    console.log(e);
+    if (e.matches) {
+      changeThemeMode(THEME_BUTTON, 'dark');
+    } else {
+      changeThemeMode(THEME_BUTTON, 'light');
+    }
+  });

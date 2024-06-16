@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'PlaywriteModerne';
+    src: url('PlaywriteFRModerne-Regular.eot');
+    src: url('PlaywriteFRModerne-Regular.eot?#iefix') format('embedded-opentype'),
+        url('PlaywriteFRModerne-Regular.woff2') format('woff2'),
+        url('PlaywriteFRModerne-Regular.woff') format('woff'),
+        url('PlaywriteFRModerne-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

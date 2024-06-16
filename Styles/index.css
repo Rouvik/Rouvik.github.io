@@ -123,6 +123,7 @@ body {
 }
 
 .container div p {
+  font-size: 4vw;
   color: var(--mcontrast);
 }
 
@@ -131,6 +132,7 @@ body {
     height: 22vw;
 }
 
+/* For phone screens */
 @media (max-width: 600px) {
   .container {
     display: flex;
@@ -142,6 +144,10 @@ body {
     width: 40vw;
     height: 40vw;
     line-height: 20vw;
+  }
+
+  .container div p {
+    font-size: 5vw;
   }
   
   .container div:hover {

@@ -1,11 +1,138 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My Toolkit</title>
+  <title>My Toolkit</title>   
+  <!--Icons-->
+  <link rel="stylesheet" href="./Fonts/material-symbols-rounded/material-symbols-rounded.css">
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="./Fonts/Signika/Signika.css">
+  <link rel="stylesheet" href="./Fonts/PlaywrightModerne/PlaywrightModerne.css">
+  <!-- Style sheets -->
+  <link rel="stylesheet" href="./Styles/theme.css">
+  <link rel="stylesheet" href="./Styles/toolkit.css">
 </head>
+
 <body>
-  <p>Unfortunately, I was not able to complete this page sorry 😅 </p>
+  <button class="viewMode" onclick="changeThemeMode(this)" mode="L">
+    &#xe518;
+  </button>
+  <canvas></canvas>
+  <h1>Welcome to my toolkits section!<br>
+      What kind of tools do I use?
+  </h1>
+  <div class="container">
+    <div class="card">
+        <object data="./Assets/C.svg" type="image/svg+xml">C</object>
+      <p>
+        As an intermediate C developer with three years of experience,
+        I began learning C in high school at age 15. During this time,
+        I have developed a strong grasp of core concepts such as memory management,
+        pointers, and data structures.
+
+        Some of my projects include:
+        </p>
+        <ul>
+          <li>Simple Calculator: A console-based calculator for basic arithmetic operations.</li>
+          <li>File I/O Operations: Programs for reading and writing files, showcasing my ability to handle data efficiently.</li>
+          <li>Data Structures: Implementations of linked lists, stacks, and queues, enhancing my understanding of dynamic memory allocation.</li>
+        </ul>
+      <p>
+        These projects have solidified my problem-solving skills and appreciation for the efficiency and control offered by C.
+      </p>
+    </div>
+    <div class="card">
+      <object data="./Assets/C++.svg" type="image/svg+xml">C++</object>
+      <p>
+        I started learning C++ a year after beginning with C, and it has since become my primary
+        programming language. With two years of experience, I have advanced to an intermediate level.
+        My notable projects include:
+        </p>
+        <ul>
+          <li>Personal Game Engine: Currently developing a small game engine to explore graphics programming and engine architecture.</li>
+          <li>Hot Code Reloader Library: Created a library for C++ to support dynamic code reloading, enhancing development efficiency.</li>
+        </ul>
+      <p>
+        These projects have deepened my understanding of object-oriented programming, memory management, and advanced C++ features.
+      </p>
+    </div>
+    <div class="card">
+      <object data="./Assets/java.svg" type="image/svg+xml">Java</object>
+      <p>
+        Java has been a core part of my programming journey, officially taught at my school since I was 10. With over five years
+        of experience, I have achieved an intermediate to advanced level of proficiency.
+        Key highlights of my Java expertise include:
+      </p>
+      <ul>
+        <li>In-depth Knowledge: A comprehensive understanding of Java's core libraries, object-oriented principles, and design patterns.</li>
+        <li>Academic Excellence: Consistently aced school CS exams, leveraging Java’s simplicity and my thorough grasp of the language.</li>
+      </ul>
+      <p>
+        My extensive experience with Java has equipped me with robust problem-solving skills and a deep appreciation for its versatility and widespread application.
+      </p>
+    </div>
+    <div class="card">
+      <object data="./Assets/html5.svg" type="image/svg+xml">HTML5</object>
+      <object data="./Assets/css.svg" type="image/svg+xml">CSS</object>
+      <object data="./Assets/javascript.svg" type="image/svg+xml">Javascript</object>
+      <p>
+        My journey with web development began at the early age of 8, and it has become the area where I am most proficient. I possess advanced, in-depth knowledge of
+        HTML5 and JavaScript, and I excel in creating visually stunning pages with CSS.
+        Key aspects of my web development expertise include:
+      </p>
+      <ul>
+        <li>HTML5 and JavaScript: Mastery in building dynamic, interactive web applications with a strong command over modern web standards and scripting.</li>
+        <li>CSS: Proficient in crafting aesthetically pleasing and responsive designs, seamlessly blending art with programming.</li>
+      </ul>
+      <p>
+        My skills in web development allow me to create captivating user experiences, making each project a profound example of technical and artistic integration.
+      </p>
+    </div>
+    <div class="card">
+      <object data="./Assets/nodejs.svg" type="image/svg+xml">NodeJS</object>
+      <p>
+        I began working with Node.js during the 2019-2020 pandemic, quickly advancing to an intermediate level. My experience includes developing various personal projects and applications.
+        Notable projects:
+      <ul>
+        <li>Discord Bots: Created and hosted personal Discord bots on Glitch.com, showcasing my ability to work with APIs and real-time data.</li>
+        <li>File Sharing System: Developed a file-sharing system using Node.js HTTP, demonstrating my understanding of server-side programming.</li>
+        <li>Online Messaging Tools: Built messaging tools using Node.js HTTP and WebSockets API, highlighting my skills in real-time communication.</li>
+      </ul>
+      <p>
+        These projects have strengthened my proficiency in Node.js, enabling me to build efficient, scalable server-side applications.
+      </p>
+    </div>
+    <div class="card">
+      <object data="./Assets/octave.svg" type="image/svg+xml">GNU Octave (or Opensource Matlab)</object>
+      <p>
+        Yes, I am even considering linear algebra computing programs like GNU Octave in my toolbox.
+        I have recently started on GNU Octave and mainly use for strengthening my mathematical intuition.<br>
+        
+        Q: Why GNU Octave?<br>
+        A: I use GNU Octave cause its free and opensource, and also works like a mere replica of its popular alternative Matlab
+        which means, deep knowledge in reflects deep knowledge in mainstream academic linear algebra program Matlab. Which is important
+        for my future academic success.
+      </p>
+    </div>
+    <div class="card">
+      <object data="./Assets/logisim.png" type="image/png">Logisim</object>
+      <p>
+        I have developed a strong proficiency in Logisim Evolution, a tool that has significantly deepened my appreciation for computer hardware.
+        While logic simulation requires less intensive programming knowledge, it has allowed me to explore and understand the intricacies of CPU architecture.
+        Key achievements:
+      </p>
+      <ul>      
+        <li>8-Bit CPU: Designed and built a personal 8-Bit CPU with a custom Instruction Set Architecture (ISA) and a working assembler written in C++. The project is available on <a href="https://github.com/Rouvik/My-8-Bit-CPU">GitHub</a></li>
+      </ul>
+      <p>
+        My experience with Logisim Evolution underscores my comprehensive understanding of computer hardware and CPU design, bridging the gap between software and hardware knowledge.
+      </p>
+    </div>
+  </div>
 </body>
+<script src="./JS/animation.js"></script>
+<script src="./JS/theme.js"></script>
 </html>
