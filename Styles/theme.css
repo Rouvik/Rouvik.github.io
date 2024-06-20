@@ -21,6 +21,8 @@
   font-family: 'Material Symbols Rounded';
   font-weight: 400;
   font-size: 30px;
+
+  transition: 200ms;
 }
 
 .theme-font-contrast {

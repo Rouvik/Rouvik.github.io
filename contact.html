@@ -11,9 +11,30 @@
   <link rel="manifest" href="./favicon/site.webmanifest">
 
   <title>Contact Rouvik!</title>
+  <!-- Icons -->
+  <link rel="stylesheet" href="./Fonts/material-symbols-rounded/material-symbols-rounded.css">
+
+  <!-- Fonts -->
+   <link rel="stylesheet" href="./Fonts/Signika/Signika.css">
+
+  <!-- Styles -->
+   <link rel="stylesheet" href="./Styles/theme.css">
+   <link rel="stylesheet" href="./Styles/contact.css">
 </head>
 <body>
-  <p>Unfortunately, I was not able to complete this page sorry 😅 </p>
-  <p>However you can contact me at majirouvik@gmail.com</p>
+  <button class="viewMode" onclick="changeThemeMode(this)" mode="L">
+    &#xe518;
+  </button>
+  <canvas></canvas>
+  <span class="typed" id="heading">Here's how you can contact me:</span><span id="heading" class="cursor">||</span>
+  <br>
+  <p>Gmail: <a href="mailto:majirouvik@gmail.com">majirouvik@gmail.com</a></p>
+  <p>Github: <a href="https://github.com/Rouvik">https://github.com/Rouvik</a></p>
 </body>
+<script src="./JS/typr.js"></script>
+<script src="./JS/animation.js"></script>
+<script src="./JS/theme.js"></script>
+<script>
+  typeText(document.getElementById('heading'), 85, 0);
+</script>
 </html>

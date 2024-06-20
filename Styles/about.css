@@ -1,9 +1,21 @@
 body {
-  background-color: var(--mcolor);
-  transition: 0.5s;
+  background-color: var(--mcontrast);
+  background: radial-gradient(circle, transparent 20%, var(--mcolor) 20%, var(--mcolor) 82%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, var(--mcolor) 20%, #e5e5f7 80%, transparent 80%, transparent) 12.5px 12.5px, linear-gradient(#444cf7 1px, transparent 1px) 0 -0.5px, linear-gradient(90deg, #444cf7 1px, var(--mcolor) 1px) -0.5px 0;
+  background-size: 25px 25px, 25px 25px, 12.5px 12.5px, 12.5px 12.5px;
+  animation: backAnim 1s linear infinite;
   margin: 0px;
   padding: 0px;
   border: 0px;
+}
+
+@keyframes backAnim {
+  from {
+    background-position: 0px 0px;
+  }
+
+  to {
+    background-position: 25px 25px;
+  }
 }
 
 a::before {
@@ -12,7 +24,8 @@ a::before {
 
 a {
   text-decoration: none;
-  color: #848EFF;
+  color: #ff8215;
+  /* #84ffc2 */
   font-size: 80%;
   border-bottom: 2px dashed #FB46EA;
 }

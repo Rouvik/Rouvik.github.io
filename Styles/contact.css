@@ -1,0 +1,59 @@
+body {
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+    background-color: var(--mcolor);
+    color: var(--mcontrast);
+    transition: 500ms;
+}
+
+canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -999;
+}
+
+.typed {
+    visibility: hidden;
+}
+
+#heading {
+    font-family: 'Signika Negative';
+    font-size: 3rem;
+    mix-blend-mode: difference;
+    color: white;
+}
+
+.cursor {
+    background-color: white;
+    width: 20px;
+    animation: blink 500ms step-end infinite alternate;
+}
+
+@keyframes blink {
+    from, to {
+        background-color: transparent;
+        color: transparent;
+    }
+
+    50% {
+        background-color: white;
+        color: white;
+    }
+}
+
+p {
+    font-family: 'Signika Negative';
+    font-size: 2rem;
+}
+
+a {
+    text-decoration: none;
+    border-bottom: 2px dashed #FB46EA;
+    color: #848EFF;
+}
+
+a::before {
+    content: "🔗 ";
+}
