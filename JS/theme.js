@@ -1,4 +1,9 @@
-const THEME_BUTTON = document.querySelector('.viewMode');
+const THEME_BUTTON = document.createElement('button');
+THEME_BUTTON.innerHTML = '&#xe518;'
+THEME_BUTTON.classList.add('viewMode');
+THEME_BUTTON.onclick = () => changeThemeMode(THEME_BUTTON);
+THEME_BUTTON.setAttribute('mode', 'L');
+document.body.prepend(THEME_BUTTON);
 
 function changeThemeMode(sel) {
   let root = document.querySelector(':root');

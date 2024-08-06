@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Red Hat Mono';
+    src: url('RedHatMono-Light.eot');
+    src: url('RedHatMono-Light.eot?#iefix') format('embedded-opentype'),
+        url('RedHatMono-Light.woff2') format('woff2'),
+        url('RedHatMono-Light.woff') format('woff'),
+        url('RedHatMono-Light.ttf') format('truetype'),
+        url('RedHatMono-Light.svg#RedHatMono-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Red Hat Mono Italic';
+    src: url('RedHatMono-LightItalic.eot');
+    src: url('RedHatMono-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('RedHatMono-LightItalic.woff2') format('woff2'),
+        url('RedHatMono-LightItalic.woff') format('woff'),
+        url('RedHatMono-LightItalic.ttf') format('truetype'),
+        url('RedHatMono-LightItalic.svg#RedHatMono-LightItalic') format('svg');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+

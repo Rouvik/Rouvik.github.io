@@ -1,0 +1,135 @@
+body {
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+
+    background-color: var(--mcolor);
+    color: var(--mcontrast);
+    transition: 0.5s;
+}
+
+header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    z-index: 999;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    background-color: rgb(7, 0, 62);
+    color: white;
+    font-family: 'Signika Negative';
+    box-shadow: 0px 0px 8px 10px rgb(7, 0, 62);
+}
+
+/* Heading styles */
+h1 {
+    padding: 15px;
+    margin: 0px;
+}
+
+h2::before {
+    content: '# ';
+    color: grey;
+}
+
+h3::before {
+    content: '# ';
+    color: grey;
+}
+
+/* Main container div styles */
+.contents {
+    margin-top: 100px;
+    font-size: 1.15rem;
+    font-family: 'Red Hat Mono';
+}
+
+/* <figure> element styles, used to align images correctly */
+.leftFigure {
+    width: min-content;
+    float: left;
+}
+
+.rightFigure {
+    width: min-content;
+    float: right;
+}
+
+.minFigure {
+    width: min-content;
+}
+
+.centerFigure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.centerFigure > img {
+    max-width: 1024px;
+    width: 90vw;
+}
+
+figcaption {
+    font-size: 0.9rem;
+    text-align: center;
+
+    color: gray;
+    font-weight: bolder;
+    text-decoration: underline;
+}
+
+/* HyperLinks style */
+.contents a::before:not(h2 *, h3 *) {
+    content: '🔗';
+}
+
+.contents a:not(h2 *, h3 *) {
+    text-decoration: none;
+    border-bottom: 2px dashed rgb(221, 67, 255);
+    color: rgb(255, 67, 114);
+}
+
+h2 a, h3 a {
+    text-decoration: none;
+    color: var(--mcontrast);
+}
+
+/* Footer styles */
+footer {
+    height: 20px;
+    margin: 50px 0px 30px 0px;
+    padding: 5px;
+    text-align: center;
+
+    font-size: 1.2rem;
+    font-weight: bolder;
+    font-family: 'Red Hat Mono';
+    cursor: pointer;
+}
+
+footer a {
+    text-decoration: none;
+    color: var(--mcontrast);
+    transition: 0.5s;
+}
+
+.negDisplay {
+    mix-blend-mode: difference;
+}
+
+footer > *::before, footer > *::after {
+    display: inline-block;
+    content: "";
+    border-top: 1px solid grey;
+    width: 6rem;
+    margin: 0 1rem;
+    transform: translateY(-0.5rem);
+}
+
+.material-symbol {
+    font-family: 'Material Symbols Rounded';
+}
