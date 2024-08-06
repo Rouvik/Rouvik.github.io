@@ -28,7 +28,7 @@ Object.assign(INDEX_DIV.style, {
     width: '40vw',
     height: '100vh',
     zIndex: '999',
-    padding: '100px 10px 0px 10px',
+    padding: '160px 10px 0px 10px',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     color: 'white',
     backdropFilter: 'blur(10px)',
