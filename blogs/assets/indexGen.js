@@ -26,14 +26,18 @@ Object.assign(INDEX_DIV.style, {
     right: '-45vw',
     top: '0px',
     width: '40vw',
-    height: '100vh',
+    height: '80vh',
     zIndex: '999',
-    padding: '160px 10px 0px 10px',
+    padding: '20vh 10px 0px 10px',
+
+    borderLeft: '1px dashed var(--mcontrast)',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     color: 'white',
     backdropFilter: 'blur(10px)',
     transition: '0.5s',
-    fontFamily: 'Red Hat Mono'
+    fontFamily: 'Red Hat Mono',
+    cursor: 'pointer',
+    overflowY: 'auto'
 });
 
 function handleIndexButton() {

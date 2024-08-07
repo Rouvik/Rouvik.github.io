@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Dynamic code reloading(hot code reload) in C/C++ using dlsym, dlopen or LoadLibrary, GetProcAddress">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../favicon/favicon-16x16.png">
+    <link rel="manifest" href="../../../favicon/site.webmanifest">
+
+    <title>Hot Code Reloading in C++</title>
+
+    <!-- Prism -->
+    <script src="../../../JS/prism.js"></script>
+    <link rel="stylesheet" href="../../../Styles/prism.css">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="../../../Fonts/material-symbols-rounded/material-symbols-rounded.css">
+    <link rel="stylesheet" href="../../../Fonts/Signika/Signika.css">
+    <link rel="stylesheet" href="../../../Fonts/RedHatMono/RedHatMono.css">
+
+    <!-- Theme -->
+    <link rel="stylesheet" href="../../../Styles/theme.css">
+    <script src="../../../JS/theme.js" defer></script>
+
+    <!-- Style -->
+    <link rel="stylesheet" href="../../assets/blogStyle.css">
+</head>
+
+<body>
+    <header>
+        <h1>Hot Code reloading in C/C++</h1>
+    </header>
+    <div class="contents line-numbers">
+        <h2>Why do we need Hot Code Reloading in the first place?</h2>
+        <p>
+            Well, to say shortly, for certain applications, critical sections
+            of code need to be often rerun to check for errors and perform rolling fixes
+            without waiting. However it becomes quite difficult if your "giant" application needs
+            to be recompiled repeatedly for each iteration of fix taking precious amounts of time
+            from your project hours. <br>
+            Also, certain applications like "Game Engines" require features like dynamic loading
+            to apply some new logic without restarting the entire game engine each time the code is compiled
+            somewhat how "Unity" or "Godot" (and maybe Unreal, I didn't look into their system in details)
+            provides dynamic code reloading upon saving changes and change the logic on the fly without changing
+            game state or restarting the engine entirely.
+        </p>
+        <h2>How Hot Code Reloading works?</h2>
+        <p>
+            If this theory is boring then
+            <a href="#HotCodeReloadinginC++">Skip straight to code</a>
+        </p>
+        <h3>Shared Libraries</h3>
+        <p>
+            Shared Libraries are linked binaries, that do not contain their own starting point
+            and can be loaded by other programs in a shared memory space and get pointers to
+            symbols in the executable to execute it's code. <br>
+            Sounds complicated? Well in simple words it's an executable with no <b>main</b>
+            and can be loaded by the host system to be shared among multiple programs and execute the
+            same small binary for multiple programs, that's where the name Shared Library comes from. <br>
+            Different host systems have different ways to handle such libraries and have different names for it:
+        <ul>
+            <li>On Linux: Shared libraries -- Example libshared.so</li>
+            <li>On Windows: Dynamic libraries -- Example libshared.dll</li>
+            <li>On Mac OS and friends: Shared libraries or Dynamically loaded modules (there's a difference between them
+                but support linux libs too) -- Example: libshared.dylib or libshared.so</li>
+        </ul>
+        In the following topic we will mostly discuss the Linux way of handling shared libraries and
+        build a hot code reloader for linux.
+        </p>
+        <h3>How Linux finds Shared libraries</h3>
+        <p>
+            First after compilation either the program requests for the library with <b>dlopen</b> call or the
+            program itself is linked with the library, for the host system to look for
+            and then the host system finds the library in the following order: <br>
+        <ul>
+            <li>
+                If a slash is found in the name then it is treated as relative or absolute path
+                and the shared object is loaded using that pathname
+            </li><br>
+            <li>
+                If no slash is found: <br>
+                <ul>
+                    <li>Using the directories specified in the DT_RPATH dynamic
+                        section attribute of the binary if present and DT_RUNPATH
+                        attribute does not exist.</li><br>
+
+                    <li>Using the environment variable LD_LIBRARY_PATH, unless the
+                        executable is being run in secure-execution mode (see
+                        below), in which case this variable is ignored.</li><br>
+
+                    <li>Using the directories specified in the DT_RUNPATH dynamic
+                        section attribute of the binary if present. Such
+                        directories are searched only to find those objects required
+                        by DT_NEEDED (direct dependencies) entries and do not apply
+                        to those objects' children, which must themselves have their
+                        own DT_RUNPATH entries. This is unlike DT_RPATH, which is
+                        applied to searches for all children in the dependency tree.</li><br>
+
+                    <li>From the cache file /etc/ld.so.cache, which contains a
+                        compiled list of candidate shared objects previously found
+                        in the augmented library path. If, however, the binary was
+                        linked with the -z nodefaultlib linker option, shared
+                        objects in the default paths are skipped. Shared objects
+                        installed in hardware capability directories (see below) are
+                        preferred to other shared objects.</li><br>
+
+                    <li>In the default path /lib, and then /usr/lib. (On some
+                        64-bit architectures, the default paths for 64-bit shared
+                        objects are /lib64, and then /usr/lib64.) If the binary was
+                        linked with the -z nodefaultlib linker option, this step is
+                        skipped.</li>
+                </ul>
+            </li>
+        </ul>
+        </p>
+        <h3>How linux loads the shared library to memory</h3>
+        <p>
+            After locating the library with the above specifications, it simply loads
+            the library in a dynamic location somewhere in RAM and marks it's symbols available in the system. <br>
+            Now calling <b>dlsym</b> fetches the pointer to these dynamic symbols and passes them to the requesting
+            program
+            or for pre linked programs, the <a
+                href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format">elf</a>
+            binary is already bootstrapped with the elf interpreter to get these symbols during runtime.
+
+        <figure class="centerFigure">
+            <img src="shared_library.png" alt="Shared Library working">
+            <figcaption>An image representation of dynamic libraries in memory</figcaption>
+        </figure>
+        </p>
+        <h2>Hot Code Reloading in C++</h2>
+        <h3>For windows</h3>
+        <p>
+            The analog for dlopen, dlsym and dlclose are LoadLibrary, GetProcAddress and CloseLibrary. <br>
+            You can use them or use my own C++ header only wrapper <b>HotCodeReload</b> to make your life easier and
+            load libraries effiently to your code. Here's a link to <a
+                href="https://github.com/Rouvik/HotCodeReload">HotCodeReload Github</a>
+        </p>
+        <h3>dlopen, dlsym, dlclose</h3>
+        <p>
+            The functions are present in the <b>&lt;dlfcn.h&gt;</b> header <br><br>
+
+            dlopen -- Loads a shared library to a <b>void *</b> to the library <br>
+            Synopsis: <code class="language-c">void *dlopen(const char *filename, int flags);</code><br>
+            For more details <a href="https://man7.org/linux/man-pages/man3/dlopen.3.html">dlopen man7</a><br><br>
+
+            dlsym -- Gets the address of a symbol in shared library <br>
+            Synopsis: <code
+                class="language-c">void *dlsym(void *restrict handle, const char *restrict symbol);</code><br>
+            For more details <a href="https://man7.org/linux/man-pages/man3/dlsym.3.html">dlsym man7</a><br><br>
+
+            dlclose -- Closes the symbol handle(<b>void *</b>) <br>
+            Synopsis: <code class="language-c">int dlclose(void *handle);</code><br>
+            For more details <a href="https://man7.org/linux/man-pages/man3/dlclose.3p.html">dlclose man7</a>
+        </p>
+        <h3>Implementation</h3>
+        <h4>Source of shared library we want to load</h4>
+        <p>
+            <b>./libshared.so</b>
+        <pre><code class="language-cpp">
+#ifdef __cplusplus // force C style naming convention for CPP to find for the symbols
+extern "C"         // in dlsym calls, CPP mangles symbol names to support OOP
+{
+#endif
+
+int sq(int x)
+{
+    return x * x;
+}
+
+#ifdef __cplusplus
+}
+#endif
+            </code></pre>
+        </p>
+        <h4>Loading the library:</h4>
+        <p>
+        <pre><code class="language-cpp">
+#include &lt;dlfcn.h&gt;
+// ...
+int main()
+{
+    void *lib = dlopen("./libshared.so", RTLD_LAZY); // or RTLD_NOW to load symbols immediately
+    if(lib == nullptr)
+    {
+        std::cerr &lt;&lt; "Failed to load library!\n";
+        return 1;
+    }
+}
+            </code></pre>
+        Calling <b>dlopen</b> with <b>RTLD_NOW</b> will force dlopen to resolve all symbols
+        before returning, failure to do so will return NULL, also if the library is not found then
+        NULL is returned.
+        </p>
+        <h4>Getting the symbols</h4>
+        <p>
+        <pre><code class="language-cpp">
+typedef int (*fun_t)(int);
+fun_t sqFunc;
+*(&sqFunc) = (fun_t)dlsym(lib, "sq"); // use this weird dereference of address syntax to make the compiler
+                                 // cast void (*) to int (*)(int) without complaints
+if(sqFunc == nullptr) // always check for errors
+{
+    std::cerr &lt;&lt; "Failed to get symbol sq\n";
+    dlclose(lib);
+    return 1;
+}
+
+// Now you can normally call the function
+int sqOfFive = sqFunc(5);
+std::cout &lt;&lt; "Square of 5 is: " &lt;&lt; sqOfFive &lt;&lt '\n';
+            </code></pre>
+        The <b>dlsym</b> function returns a <b>void (*)</b> pointer to the symbol requested, here we
+        ask the compiler to cast it to a <b>int (*)(int)</b> to call the function
+        </p>
+        <h4>Closing the library</h4>
+        <p>
+        <pre><code class="language-cpp">
+dlclose(lib);
+lib = nullptr; // its always a good practise to mark freed stuff nullptr
+            </code></pre>
+        Simply make sure to call <b>dlclose</b> at the end to close the library and
+        mark the free for use from your program.
+        </p>
+        <h4>Complete dynamic loading example</h4>
+        <p>
+        <pre><code class="language-cpp">
+#include &lt;dlfcn.h&gt;
+// ...
+
+int main()
+{
+    const char *libName = "./libshared.so";
+    void *lib = dlopen(libName, RTLD_LAZY);
+
+    if(lib == nullptr)
+    {
+        // log error
+        return 1;
+    }
+
+    typedef int (*fun_t)(int);
+    fun_t sqFunc;
+    *(&sqFunc) = (fun_t)dlsym(lib, "sq");
+
+    if(sqFunc == nullptr)
+    {
+        // log error
+        dlclose(lib);
+        return 1;
+    }
+
+    char ch = 0;
+    do
+    {
+        std::cout &lt;&lt; "Enter choice: ";
+        std::cin &gt;&gt; ch;
+
+        if(ch == 'r') // reload the library
+        {
+            if(lib != nullptr) dlclose(lib);
+            lib = dlopen(libName, RTLD_LAZY);
+            if(lib == nullptr)
+            {
+                // log error
+                return 1;
+            }
+
+            *(&sqFunc) = (fun_t)dlsym(lib, "sq");
+            if(sqFunc == nullptr)
+            {
+                // log error
+                dlclose(lib);
+                return 1;
+            }
+            std::cout &lt;&lt; "Reloaded!\n";
+            continue;
+        }
+
+        std::cout &lt;&lt; "Output: " &lt;&lt; sqFunc(5) &lt;&lt; '\n';
+    } while(ch != 'q');
+
+    dlclose(lib);
+    return 0;
+}
+        </code></pre>
+        Now for hot reloading, run the program, and then press any key except <b>r</b> or <b>q</b>
+        to view the output of <b>sq</b> function for 5. <br>
+        In order to change code on fly, recompile <b>libshared.so</b> without stopping the main program
+        and press <b>r</b> to reload the library in main program <br>
+        Now pressing any other key will yield in a different result with changed code! <br>
+        To quit the main program press <b>q</b> to bail out of the loop and return
+        </p>
+        <h4>Example output</h4>
+        <p>
+        <pre class="command-line" data-output="4, 5"><code class="language-bash">g++ main.cpp -o main.exe
+g++ shared.cpp -shared -fPIC -o libshared.so
+./main
+Enter choice: s
+Output: 25</code></pre>
+        Now, change the code of <b>shared.cpp</b> like as:
+        <pre><code class="language-cpp">
+#ifdef __cplusplus // force C style naming convention for CPP to find for the symbols
+extern "C"         // in dlsym calls, CPP mangles symbol names to support OOP
+{
+#endif
+
+int sq(int x)
+{
+    return x + x; // &lt;&lt;&lt;=== now we are adding each other instead!
+}
+
+#ifdef __cplusplus
+}
+#endif
+        </code></pre>
+        <pre class="command-line" data-output="1 - 5"><code class="language-bash">Enter choice: r
+Reloaded!
+Enter choice: s
+Output: 10
+Enter choice: q</code></pre>
+        Now as you can see, the code has been updated without stopping main.
+        </p>
+        <h4>Preserving states</h4>
+        <p>
+            State can be preserved on the <b>main.cpp</b> side by storing the data
+            in a <code class="language-cpp">struct</code> or <code class="language-cpp">std::map</code>
+            as the data in <b>main.exe</b> side will remain throught the execution of the program.
+        </p>
+        <h2>Further learning sources:</h2>
+        <p>TSoding hot code reloading in C -- <a href="https://www.youtube.com/watch?v=Y57ruDOwH1g">youtube.com</a></p>
+        <p>Slembcke's Computational Corner -- <a href="https://slembcke.github.io/HotLoadC">slembcke.github.io</a></p>
+        <p>
+            Google.com -- <a href="https://google.com">google.com</a><br>
+            <i>Yes I am serious!</i>
+        </p>
+    </div>
+</body>
+<script src="../../assets/indexGen.js"></script>
+
+</html>

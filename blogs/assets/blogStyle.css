@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     border: 0px;
     padding: 0px;
@@ -83,7 +87,7 @@ figcaption {
 }
 
 /* HyperLinks style */
-.contents a::before:not(h2 *, h3 *) {
+.contents a:not(h2 *, h3 *)::before {
     content: '🔗';
 }
 
