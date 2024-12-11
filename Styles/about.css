@@ -25,7 +25,7 @@ a::before {
 a {
   text-decoration: none;
   color: #ff8215;
-  /* #84ffc2 */
+  /* color: #84ffc2; */
   font-size: 80%;
   border-bottom: 2px dashed #FB46EA;
 }
@@ -39,22 +39,22 @@ a {
 }
 
 .card {
-  height: 100vh;
-  width: 100vw;
+  height: 95vh;
+  width: 95vw;
+  margin-left: 5px;
   padding-bottom: 5vh;
   scroll-snap-align: start;
   overflow-y: auto;
   transition: 2s;
 }
 
-.hidden {
-  visibility: hidden;
+/* Hide scrollbar inside cards */
+.card::-webkit-scrollbar {
+  display: none;
 }
 
-.cursor {
-  background-color: var(--mcontrast);
-  color: transparent !important;
-  animation: blink 0.5s step-end infinite alternate;
+.hidden {
+  visibility: hidden;
 }
 
 .typed {
@@ -64,13 +64,14 @@ a {
 .para {
   color: var(--mcontrast);
   font-size: 2rem;
-  font-family: 'Signika Negative';
+  font-family: 'Toshiba Sat 8x14';
+
 }
 
 .s-para {
   color: var(--mcontrast);
   font-size: 1.5rem;
-  font-family: 'Signika Negative';
+  font-family: 'Toshiba Sat 8x14';
 }
 
 .showlater {
@@ -80,21 +81,13 @@ a {
   animation-fill-mode: forwards;
 }
 
-.anim1 span {
-  font-family: 'Courier New', Courier, monospace;
+.anim1 .heading {
+  font-family: 'Toshiba Sat 8x14';
+
   font-weight: bolder;
   font-size: 50px;
+  height: 150px;
   color: var(--mcontrast);
-}
-
-@keyframes blink {
-  to, from {
-    background-color: transparent;
-  }
-  
-  50% {
-    background-color: var(--mcontrast);
-  }
 }
 
 @keyframes setVisible {

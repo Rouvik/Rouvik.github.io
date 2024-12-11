@@ -4,6 +4,7 @@ body {
     margin: 0px;
     background-color: var(--mcolor);
     transition: 0.5s;
+    overflow-x: hidden; /* Bad fix!!! */
 }
 
 .head {
@@ -13,7 +14,7 @@ body {
     box-shadow: 0px 0px 10px 10px #222E3F;
     text-shadow: 4px 4px 10px #FF1E8C;
 
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Toshiba Sat 8x14';
     font-size: 600%;
     fill: transparent;
     stroke: white;
@@ -70,7 +71,8 @@ body {
 .intro p {
   font-size: 50px;
   color: var(--mcontrast);
-  font-family: 'Signika Negative';
+  font-family: 'Toshiba Sat 8x14';
+
 }
 
 .intro p span {
@@ -107,7 +109,7 @@ body {
 
     text-align: center;
     font-size: 20px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Toshiba Sat 8x14';
     font-weight: bolder;
 
     border-radius: 15px;
@@ -127,11 +129,6 @@ body {
   color: var(--mcontrast);
 }
 
-.container div:hover {
-    width: 22vw;
-    height: 22vw;
-}
-
 /* For phone screens */
 @media (max-width: 600px) {
   .container {
@@ -141,35 +138,32 @@ body {
   }
   
   .container div {
-    width: 40vw;
-    height: 40vw;
-    line-height: 20vw;
+    width: 30vw;
+    height: 30vw;
+    line-height: 15vw;
+    padding: 20vw;
   }
 
   .container div p {
     font-size: 5vw;
   }
   
-  .container div:hover {
-    width: 42vw;
-    height: 42vw;
-  }
 }
 
 .rcolor-blue:hover {
-    background: rgba(144, 0, 255, 0.5);
-}
-
-.rcolor-red:hover {
-    background: rgba(255, 0, 76, 0.5);
-}
-
-.rcolor-golden:hover {
-    background: rgba(255, 204, 0, 0.5);
-}
-
-.rcolor-green:hover {
-    background: rgba(94, 255, 0, 0.5);
+    box-shadow: 0px 0px 10px 5px rgba(144, 0, 255, 0.5);
+  }
+  
+  .rcolor-red:hover {
+    box-shadow: 0px 0px 10px 5px rgba(255, 0, 76, 0.5);
+  }
+  
+  .rcolor-golden:hover {
+    box-shadow: 0px 0px 10px 5px rgba(255, 204, 0, 0.5);
+  }
+  
+  .rcolor-green:hover {
+    box-shadow: 0px 0px 10px 5px rgba(94, 255, 0, 0.5);
 }
 
 canvas {

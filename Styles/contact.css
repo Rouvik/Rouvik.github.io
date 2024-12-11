@@ -5,6 +5,8 @@ body {
     background-color: var(--mcolor);
     color: var(--mcontrast);
     transition: 500ms;
+
+    overflow-x: hidden; /* Bad fix!!! */
 }
 
 canvas {
@@ -19,7 +21,10 @@ canvas {
 }
 
 #heading {
-    font-family: 'Signika Negative';
+    /* font-family: 'Signika Negative'; */
+    font-family: 'Toshiba Sat 8x14';
+    margin: 5px;
+
     font-size: 3rem;
     mix-blend-mode: difference;
     color: white;
@@ -44,8 +49,19 @@ canvas {
 }
 
 p {
-    font-family: 'Signika Negative';
+    /* font-family: 'Signika Negative'; */
+    font-family: 'Toshiba Sat 8x14';
     font-size: 2rem;
+    margin-left: 10px;
+}
+
+.github_icon {
+    height: 2rem;
+    transform: translateY(20%);
+}
+
+.email-symbol {
+    font-family: 'Material Symbols Rounded';
 }
 
 a {

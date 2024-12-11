@@ -50,7 +50,7 @@ h1 {
 
 .container .card p,
 ul {
-    font-family: 'PlaywriteModerne';
+    font-family: 'Toshiba Sat 8x14';
     font-size: 15px;
 }
 
@@ -83,7 +83,7 @@ a {
     }
 
     .container .card p:not(.chead) {
-        font-family: 'PlaywriteModerne';
+        font-family: 'Toshiba Sat 8x14';
         font-size: 20px;
     }
 }
