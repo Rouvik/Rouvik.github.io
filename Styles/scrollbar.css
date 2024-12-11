@@ -1,0 +1,9 @@
+::-webkit-scrollbar {
+    background-color: transparent;
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(rgb(255, 174, 0), rgb(255, 0, 106));
+    border-radius: 15px;
+}

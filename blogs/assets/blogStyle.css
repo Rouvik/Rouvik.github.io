@@ -137,3 +137,8 @@ footer > *::before, footer > *::after {
 .material-symbol {
     font-family: 'Material Symbols Rounded';
 }
+
+/* Hide ugly scrollbars for pre tags */
+pre::-webkit-scrollbar {
+    display: none;
+}
