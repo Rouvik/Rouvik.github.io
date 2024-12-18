@@ -2,6 +2,8 @@ body {
     background-color: var(--mcolor);
     color: var(--mcontrast);
     transition: 500ms;
+
+    overflow-x: hidden; /* Bad fix!!! */
 }
 
 h1 {
@@ -11,31 +13,23 @@ h1 {
 }
 
 .container {
-    display: grid;
-    justify-items: center;
-    gap: 30px 30px;
-    grid-template-columns: repeat(3, auto);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+
 .container .card {
-    height: 300px;
-    width: calc(100vw / 3 - 56px);
+    max-height: 80vh;
+    width: 98vw;
     padding: 10px;
     overflow-y: auto;
-
-    /* hide scrollbar */
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
 
     color: var(--mcontrast);
     background-color: transparent;
     backdrop-filter: blur(5px);
-    border: 2px dashed var(--mcontrast);
-    border-radius: 10px;
+    border-top: 2px dashed var(--mcontrast);
     font-size: larger;
-    font-family: 'Courier New', Courier, monospace;
     font-weight: bolder;
 }
 
@@ -63,29 +57,6 @@ a {
     color: #848EFF;
     font-size: 120%;
     border-bottom: 2px dashed #FB46EA;
-}
-
-@media (max-width: 900px) {
-    h1 {
-        font-size: min(70px, 20vw);
-    }
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .container .card {
-        width: 60vw;
-        height: max(100px, 60vw);
-        font-size: 10vw;
-    }
-
-    .container .card p:not(.chead) {
-        font-family: 'Toshiba Sat 8x14';
-        font-size: 20px;
-    }
 }
 
 canvas {

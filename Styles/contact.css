@@ -21,11 +21,10 @@ canvas {
 }
 
 #heading {
-    /* font-family: 'Signika Negative'; */
     font-family: 'Toshiba Sat 8x14';
     margin: 5px;
 
-    font-size: 3rem;
+    font-size: 10vw;
     mix-blend-mode: difference;
     color: white;
 }
@@ -49,15 +48,15 @@ canvas {
 }
 
 p {
-    /* font-family: 'Signika Negative'; */
     font-family: 'Toshiba Sat 8x14';
-    font-size: 2rem;
+    font-size: 5vw;
     margin-left: 10px;
 }
 
 .github_icon {
-    height: 2rem;
+    height: 5vw;
     transform: translateY(20%);
+    mix-blend-mode: difference;
 }
 
 .email-symbol {
@@ -72,4 +71,8 @@ a {
 
 a::before {
     content: "🔗 ";
+}
+
+a:hover {
+    border-bottom: 2px solid #3748dc;
 }
