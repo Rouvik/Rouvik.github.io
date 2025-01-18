@@ -49,7 +49,7 @@ canvas {
 
 p {
     font-family: 'Toshiba Sat 8x14';
-    font-size: 5vw;
+    font-size: min(5vw, 3em);
     margin-left: 10px;
 }
 

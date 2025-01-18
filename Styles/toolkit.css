@@ -3,43 +3,58 @@ body {
     color: var(--mcontrast);
     transition: 500ms;
 
-    overflow-x: hidden; /* Bad fix!!! */
+    overflow: hidden; /* Bad fix!!! */
 }
 
 h1 {
     font-family: 'Signika Negative';
     color: white;
     mix-blend-mode: difference;
+    font-weight: bolder;
 }
-
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    height: 65vh;
+    overflow: hidden auto;
+    
+    scroll-snap-type: mandatory;
+    scroll-snap-points-y: repeat(100vh);
+    scroll-snap-type: y mandatory;
 }
-
 
 .container .card {
-    max-height: 80vh;
-    width: 98vw;
+    height: 50vh;
     padding: 10px;
     overflow-y: auto;
-
+    
     color: var(--mcontrast);
     background-color: transparent;
     backdrop-filter: blur(5px);
     border-top: 2px dashed var(--mcontrast);
     font-size: larger;
     font-weight: bolder;
+
+    scroll-snap-align: start;
+    
+    transition: 400ms;
+}
+
+/* Toolkit Image properties */
+.container .card > object {
+    width: 50px;
+    margin: 0px 5px 0px 5px;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.container .card-intersection > object {
+    transform: scale(120%);
+    transition: 1s;
+    background-color: rgb(255, 255, 255, 0.2);
 }
 
 /* hide Scrollbar Webkit */
 .container .card::-webkit-scrollbar {
     display: none;
-}
-
-.container .card object {
-    width: 50px;
 }
 
 .container .card p,

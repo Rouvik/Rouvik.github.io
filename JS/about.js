@@ -3,7 +3,7 @@ Circle = undefined; // no circle background used here so
 
 const txt1 = document.getElementById('text1');
 const cards = document.querySelectorAll('.card');
-const int = new IntersectionObserver((entries) => {
+const int = new IntersectionObserver((entries) => {  
   entries.forEach((e) => {
     if(e.isIntersecting) {
       e.target.classList.add(e.target.getAttribute('animStyle') || 'anim1');
