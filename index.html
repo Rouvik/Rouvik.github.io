@@ -39,39 +39,36 @@
   </div>
   <div class="container">
     <div onclick="location.href = './about.html'">
+      <noscript><a href="./about.html">About Me</a></noscript>
       <p>About Me</p>
     </div>
 
     <div onclick="location.href = './toolkit.html'">
+      <noscript><a href="./toolkit.html">Toolkit</a></noscript>
       <p>Toolkit</p>
     </div>
 
     <div onclick="location.href = './contact.html'">
+      <noscript><a href="./contact.html">Contact</a></noscript>
       <p>Contact</p>
     </div>
 
     <div onclick="location.href = './blogs/list.html'">
+      <noscript><a href="./blogs/list.html">Blogs</a></noscript>
       <p>
         Blogs
       </p>
     </div>
+
+    <div onclick="location.href = './CreativeCoding/index.html'">
+      <noscript><a href="./CreativeCoding/index.html">Creative Coding</a></noscript>
+      <p>
+        Games
+      </p>
+    </div>
   </div>
-  <img class="hiddenImg" src="./Assets/nyanFace.png" alt="nyan" onclick="document.location.href='./NyanCat';" />
 </body>
 <script src="./JS/index.js"></script>
 <script src="./JS/animation.js"></script>
 <script src="./JS/theme.js"></script>
-<script>
-  const nyanImg = document.querySelector('.hiddenImg');
-
-  // NYAN SURPRISE!
-  function showNyan() {
-    nyanImg.style.bottom = '-5px';
-    setTimeout(() => nyanImg.style.bottom = '-50px', 3000);
-    setTimeout(showNyan, ~~(Math.random() * 17 + 3) * 1000);
-  }
-
-  setTimeout(showNyan, ~~(Math.random() * 17 + 3) * 1000);
-</script>
-
 </html>
