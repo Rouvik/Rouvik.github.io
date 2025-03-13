@@ -42,7 +42,6 @@
             to pitfalls. Requiring detailed knowledge about what is it and what you are doing
             in case you dont want to shoot yourself at foot.
         </p>
-        <h3>Memory placement and virtual memory</h3>
         <p>
             Before we begin, here's an example of what we are talking about:
         <pre><code class="language-c">
@@ -86,7 +85,8 @@ int arr[ARRLEN] = {...};
 #undef ARRLEN // if necessary
         </code></pre>
         </p>
-        <h3>Array operators</h3>
+        <h2>Array operators</h2>
+        <h3>Reversed indexing</h3>
         <p>
         <pre><code class="language-c">
 int arr[5] = {1, 3, 5, 7, 9};
@@ -107,7 +107,64 @@ for(int i = 0; i &lt; 5; i++)
         <b>0[arr]</b> too with no problem whatsoever! However cool it looks its actually a bad practise
         and should be avoided at all costs.
         </p>
-        <h3>Memory padding</h3>
+        <p>This is just the beginning...</p>
+        <h3>Reversed re-indexing</h3>
+        <p>It is also possible to use this same construct to <b>get the value at an index and then use it to index in
+                the array again</b><br>
+            Or in simple words this: <code class="language-c">i[arr][arr]</code>
+            Here is a code example to describe this further in detail:
+        </p>
+        <pre><code class="language-c">int arr[] = {1, 3, 5, 7, 9};
+int i = 1;
+printf("%d\n", i[arr][arr]); // Outputs: 7
+// Why? Let's break it down
+// i[arr] = arr[i] = 3
+// 3[arr] = arr[3] = 7
+</code></pre>
+        <h3>Reversed indexing in 2D arrays</h3>
+        <p>
+            This gets even more weird in case of 2D arrays. Here we can too use the reversed indexing <code
+                class="language-c">i[arr]</code> to access the inner array and then
+            access the rest as <code class="language-c">i[arr][j]</code> where i and j are the indexes of the 2D array.
+            The concept is similar here, we again use the same logic as reversed indexing to retrieve the inner row
+            array from the 2D array and then index the particular element from the row array.
+            Here's an example to demonstrate this:</p>
+        <pre><code class="language-c">int arr[2][3] = {{1, 2, 3}, {4, 5, 6}};
+int i = 1;
+int j = 2;
+printf("%d\n", i[arr][j]); // Outputs: 6
+// Why? Let's break it down
+// i[arr] = arr[i] = {4, 5, 6}
+// {4, 5, 6}[j] = 6
+</code></pre>
+        <h3>Nested reversed indexing</h3>
+        <p>
+            We can even nest these sort of accesses to make it worse. For example consider a 2D array <b>arr</b>
+            and then access the inner array using reversed indexing, then access the element of the inner array with an
+            enclosing reversed indexing.
+            For example:
+        </p>
+        <pre><code class="language-c">int arr[2][3] = {{1, 2, 3}, {4, 5, 6}};
+int i = 1;
+int j = 2;
+printf("%d\n", j[i[arr]]); // Outputs: 6
+// Why? Let's break it down
+// i[arr] = arr[i] = {4, 5, 6}
+// j[{4, 5, 6}] = 6
+</code></pre>
+        <h3>Array indexing on "literal" strings</h3>
+        <p>
+            Characters in a string can alreay be indexed using similar indexing operators like <code>str[i]</code>
+            But did you know that you can do that on a literal too? Not sure why this works or exists, but it works... <br>
+            Example:
+        </p>
+        <pre><code class="language-c">char *str = "Hello, World!";
+// Makes sense and used to work
+printf("%c\n", str[7]); // Outputs: W
+// But this works too!
+printf("%c\n", "Hello, World!"[7]); // Outputs: W
+</code></pre>
+        <h2>Memory padding</h2>
         <p>
         <pre><code class="language-c">
 struct Complex
