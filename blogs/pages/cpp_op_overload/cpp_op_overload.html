@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="C++ Operator Overloading: A comprehensive guide to operator overloading in C++. Learn how to overload operators for custom classes and enhance code readability.">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../favicon/favicon-16x16.png">
+    <link rel="manifest" href="../../../favicon/site.webmanifest">
+
+    <title>Operator Overloading in CPP</title>
+
+    <!-- Prism -->
+    <script src="../../../JS/prism.js"></script>
+    <link rel="stylesheet" href="../../../Styles/prism.css">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="../../../Fonts/material-symbols-rounded/material-symbols-rounded.css">
+    <link rel="stylesheet" href="../../../Fonts/Signika/Signika.css">
+    <link rel="stylesheet" href="../../../Fonts/RedHatMono/RedHatMono.css">
+
+    <!-- Theme -->
+    <link rel="stylesheet" href="../../../Styles/theme.css">
+    <script src="../../../JS/theme.js" defer></script>
+
+    <!-- Style -->
+    <link rel="stylesheet" href="../../assets/blogStyle.css">
+    <link rel="stylesheet" href="../../../Styles/scrollbar.css">
+
+</head>
+<body>
+    <header>
+        <h1>Operator Overloading in CPP</h1>
+    </header>
+
+    <div class="contents line-numbers">
+        <h2>What is operator overloading?</h2>
+        <p>
+            Operator Overloading is an inbuilt feature of the CPP programming language that enables
+            you to write your own definition of an operator for user-defined data types. It allows you to
+            define how operators such as +, -, *, /, etc., behave when applied to objects of your classes.
+            This can make your code more intuitive and easier to read, as you can use standard operators. <br>
+            For example:
+        </p>
+        <pre><code class="language-cpp">#include &lt;iostream&gt;
+class Num
+{
+public:
+    int num;
+    Num(int n) : num(n) {}
+
+    Num operator +(Num &n)
+    {
+        return Num(num - n.num);
+    }
+
+    Num operator -(Num &n)
+    {
+        return Num(num + n.num);
+    }
+};
+
+int main()
+{
+    Num n1(10), n2(5);
+    Num n3 = n1 + n2; // Calls the operator+ function
+    Num n4 = n1 - n2; // Calls the operator- function
+    std::cout &lt;&lt; "n3: " &lt;&lt; n3.num &lt;&lt; std::endl; // Output: n3: 5
+    std::cout &lt;&lt; "n4: " &lt;&lt; n4.num &lt;&lt; std::endl; // Output: n4: 15
+    // The output is 5 and 15, which is the opposite of what we would expect from the operator overloads.
+    return 0;
+}</code></pre>
+    <p>As you can observe that strangely, the operators have flipped in functionality for the <code class="language-cpp">class Num</code> due to operator overloading</p>
+    <h3>Basic operators that can be overloaded:</h3>
+    <p>
+        The following operators can be overloaded in C++:
+        <ul>
+            <li>Arithmetic Operators: +, -, *, /, %, ++, --</li>
+            <li>Relational Operators: ==, !=, &gt;, &lt;, &gt;=, &lt;=</li>
+            <li>Logical Operators: &&, ||</li>
+            <li>Bitwise Operators: &, |, ^, ~, &lt;&lt;, &gt;&gt;</li>
+            <li>Assignment Operators: =, +=, -=, *=, /=</li>
+            <li>Increment/Decrement Operators: ++, --</li>
+            <li>Subscript Operator: []</li>
+            <li>Function Call Operator: ()</li>
+            <li>Member Access Operator: -&gt;</li>
+            <li>Stream Insertion/Extraction Operators: &lt;&lt;, &gt;&gt;</li>
+            <li>Literal Operators: 12.0f, 13i</li>
+        </ul>
+    </p>
+    <h3>Overloading the basic arithetic, relational, logical operators:</h3>
+    <p>
+        The following code demonstrates how to overload the basic arithmetic, relational, and logical operators in C++ within a class:
+        <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+/*
+To overload an operator in C++, you define a function with the following syntax:
+Return-Type operator operatorName (parameter-list) { function-body }
+*/
+
+class Num
+{
+public:
+    int num;
+    Num(int n) : num(n) {}
+
+    // Overloading the generic math operators
+    Num operator+(const Num &other) const
+    {
+        return Num(num + other.num);
+    }
+
+    // using macros to reduce code duplication (pages coming soon...)
+    #define ARITHMETIC_OPERATOR(op) \
+    Num operator op (const Num &other) const \
+    { \
+        return Num(num op other.num); \
+    }
+
+    ARITHMETIC_OPERATOR(-)
+    ARITHMETIC_OPERATOR(*)
+    ARITHMETIC_OPERATOR(/)
+    ARITHMETIC_OPERATOR(%)
+
+};
+
+/*
+    Overloading can also be done from outside the class, but it is less common.
+    For example, you can overload the operator+ function like this:
+*/
+Num operator+(const Num &n1, const Num &n2) {
+    return Num(n1.num + n2.num);
+}
+
+int main()
+{
+    Num n1(10), n2(5);
+    Num n3 = n1 + n2; // Calls the operator+ function
+    Num n4 = n1 - n2; // Calls the operator- function
+    Num n5 = n1 * n2; // Calls the operator* function
+    Num n6 = n1 / n2; // Calls the operator/ function
+    Num n7 = n1 % n2; // Calls the operator% function
+    std::cout &lt;&lt; "n1 + n2 = " &lt;&lt; n3.num &lt;&lt; std::endl;
+    std::cout &lt;&lt; "n1 - n2 = " &lt;&lt; n4.num &lt;&lt; std::endl;
+    std::cout &lt;&lt; "n1 * n2 = " &lt;&lt; n5.num &lt;&lt; std::endl;
+    std::cout &lt;&lt; "n1 / n2 = " &lt;&lt; n6.num &lt;&lt; std::endl;
+    std::cout &lt;&lt; "n1 % n2 = " &lt;&lt; n7.num &lt;&lt; std::endl;
+    // The overloaded operator+ function can also be called like this:
+    Num n8 = operator+(n1, n2); // Calls the operator+ function
+    std::cout &lt;&lt; "operator+(n1, n2) = " &lt;&lt; n8.num &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+    </p>
+    Similarly relational operators can also be overloaded in the same way as arithmetic operators. <br>
+    <p>For example:</p>
+    <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Num
+{
+public:
+    int num;
+    Num(int n) : num(n) {}
+};
+
+/*
+Overloading the operator &gt; for the Num class.
+Here the &gt; operator instead of returning traditional true or false, it returns the max among the objects.
+*/
+Num operator&gt;(const Num &n1, const Num &n2) {
+    return n1.num &gt; n2.num ? n1 : n2;
+}
+
+int main()
+{
+    Num n1(10), n2(5);
+    std::cout &lt;&lt; "Max: " &lt;&lt; (n1 > n2).num &lt;&lt; std::endl; // Output: Max: 10
+    // The overloaded operator &gt; returns the object with the greater num value.
+    // In this case, it returns n1 since 10 &gt; 5.
+    return 0;
+}</code></pre>
+    <p>Similarly, you can overload the logical operators as well. For example:</p>
+    <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class Num
+{
+public:
+    int num;
+    Num(int n) : num(n) {}
+};
+
+/*
+Overloading the operator && for the Num class.
+Here the && operator instead of returning traditional true or false, it returns a string
+*/
+std::string operator&&(const Num &n1, const Num &n2) {
+    return n1.num == n2.num ? "Equal" : "Not Equal";
+}
+
+int main()
+{
+    Num n1(10), n2(5);
+    std::cout &lt;&lt; "Equality: " &lt;&lt; (n1 && n2) &lt;&lt; std::endl; // Output: Equality: Not Equal
+    // The overloaded operator && returns a string instead of a boolean value.
+    return 0;
+}</code></pre>
+    <p>Similar techinques can be applied for bitwise operators to modify their traditional behaviour</p>
+    <h3>Pre increment and post increment overloading?</h3>
+    <p>
+        As you might have observed that the operator overloading construct doesnt explicitly specify the order of the operators applied. <br>
+        Which means that you actually can't specify <code class="language-cpp">++ operator(){...}</code> as it is illegal. <br>
+        But then how to overload the pre increment and post increment operators? <br>
+        <pre><code class="language-cpp">class Num
+{
+public:
+    int num;
+    Num(int n) : num(n) {} // Constructor to initialize num
+
+    // Overloading pre-increment (++Num)
+    Num &operator++()
+    {
+        ++num;        // Increment the value
+        return *this; // Return the current object
+    }
+
+    // Overloading post-increment (Num++)
+    Num operator++(int)
+    {                     // &lt;&lt;&lt; NOTE THE (int) INSIDE THE PARENTHESES!!!
+        Num temp = *this; // Save the current state
+        ++num;            // Increment the value
+        return temp;      // Return the old state
+    }
+};
+
+int main() {
+    Num n1(10);
+    std::cout &lt;&lt; "Initial value: " &lt;&lt; n1.num &lt;&lt; std::endl;
+
+    ++n1; // Pre-increment
+    std::cout &lt;&lt; "After pre-increment: " &lt;&lt; n1.num &lt;&lt; std::endl;
+
+    Num n2 = n1++; // Post-increment
+    std::cout &lt;&lt; "After post-increment: " &lt;&lt; n1.num &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Value of n2 (before increment): " &lt;&lt; n2.num &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+    Did you see it? We simply use the int inside the parentheses of the post increment operator overload function to differentiate it from the pre increment operator overload function. <br>
+    </p>
+    <h3>Assignment operator magic!</h3>
+    <p>
+        The assignment operator is a special operator in C++ that allows you to assign values from one object to another. <br>
+        By default, the assignment operator performs a shallow copy of the object's members. However, you can overload the assignment operator to perform a deep copy or customize the assignment behavior. <br>
+        Here's an example of how to overload the assignment operator:
+        <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;cstdlib&gt; // For std::stoi
+
+class Num
+{
+public:
+    int num;
+    Num(int n) : num(n) {} // Constructor to initialize num
+
+    // Assignment operator overloading
+    Num& operator=(std::string numStr)
+    {
+        num = std::stoi(numStr); // Convert string to int and assign
+        return *this;
+    }
+};
+
+int main()
+{
+    Num n1(10);
+    std::cout &lt;&lt; "Initial Value:  " &lt;&lt; n1.num &lt;&lt; std::endl; // Output: 10
+    n1 = "20"; // Assigning a string to n1 using overloaded operator= MAGIC!!!
+    std::cout &lt;&lt; "After Assignment: " &lt;&lt; n1.num &lt;&lt; std::endl; // Output: 20
+    return 0;
+}</code></pre>
+    </p>
+    <h3>Subscripts</h3>
+    <p>
+        The subscript operator <code class="language-cpp">[]</code> can be overloaded to provide custom behavior for array-like access in your classes. <br>
+        Here's an example of how to overload the subscript operator:
+        <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Num
+{
+public:
+    int num;
+    Num(int n) : num(n) {} // Constructor to initialize num
+
+    // Subscript operator overloading
+    int operator[](int index) {
+        return num &gt;&gt; index && 1; // Right shift and bitwise AND to get the bit at index
+    }
+};
+
+int main()
+{
+    Num n1(10);
+    std::cout &lt;&lt; "Bit at index 3: " &lt;&lt; n1[3] &lt;&lt; std::endl; // Should print 1 (10 in binary is 1010)
+                                                            //                                ^xxx
+    return 0;
+}</code></pre>
+    </p>
+    <h3>Method Call overloading:</h3>
+    <p>
+        The method call operator <code class="language-cpp">()</code> can be overloaded to allow objects of your class to be called like functions. <br>
+        Here's an example of how to overload the method call operator:
+        <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class Num
+{
+public:
+    int num;
+    Num(int n) : num(n) {} // Constructor to initialize num
+
+    // Subscript operator overloading
+    std::string operator()(int repeat) {
+        return std::string(repeat, 65 + num); // Right shift and bitwise AND to get the bit at index
+    }
+};
+
+int main()
+{
+    Num n1(17);
+    std::cout &lt;&lt; "Bit at index 3: " &lt;&lt; n1(3) &lt;&lt; std::endl; // Should print 'R' 3 times as RRR
+    return 0;
+}</code></pre>
+    </p>
+    <h3>The member access operator:</h3>
+    <p>
+        The member access operator <code class="language-cpp">-&gt;</code> can also be overloaded for special cases to provide custom behavior when accessing members of a class. <br>
+        Here's an example of how to overload the member access operator:
+        <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Num
+{
+    public:
+    int num;
+    Num(int n) : num(n) {} // Constructor to initialize num
+};
+
+class NumProxy
+{
+    public:
+    Num &amp;num;
+    NumProxy(Num& n, int index) : num(n) {}
+
+    Num* operator ->()
+    {
+        return &amp;num; // Return the address of num
+    }
+};
+
+int main()
+{
+    Num n1(17);
+    NumProxy n1p(n1, 0); // Create a NumProxy object
+    std::cout &lt;&lt; "Number by proxy: " &lt;&lt; n1p->num &lt;&lt; std::endl; // Should print 17
+    return 0;
+}</code></pre>
+    </p>
+    <h3>Stream Insertion and Extraction operators:</h3>
+    <p>
+        The stream insertion operator <code class="language-cpp">&lt;&lt;</code> and the stream extraction operator <code class="language-cpp">&gt;&gt;</code> can be overloaded to allow your class objects to be used with input/output streams. <br>
+        Here's an example of how to overload these operators:
+        <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Num
+{
+    public:
+    int num;
+    Num(int n) : num(n) {} // Constructor to initialize num
+
+    // this function is actually overloading the &lt;&lt; operator of the ostream class thus requiring the friend keyword
+    // to allow access to private members of the class
+    friend std::ostream& operator &lt;&lt;(std::ostream& os, const Num& n)
+    {
+        os &lt;&lt; "Num: " &lt;&lt; n.num;
+        return os;
+    }
+};
+
+/* you can also overload teh &lt;&lt; operator outside the class
+
+std::ostream& operator &lt;&lt;(std::ostream& os, const Num& n)
+{
+    os &lt;&lt; "Num: " &lt;&lt; n.num;
+    return os;
+}
+
+*/
+
+int main()
+{
+    Num n1(17);
+    std::cout &lt;&lt; n1 &lt;&lt; '\n'; // Output: Num: 17
+    return 0;
+}</code></pre>
+    </p>
+    <h3>Literal operators: </h3>
+    <p>
+        Literal operators are a special type of operator in C++ that allows you to define custom behavior for user-defined literals. <br>
+        This feature is particularly useful when you want to create a more readable syntax for your classes. <br>
+        Here's an example of how to define a user-defined literal operator:
+        <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Num
+{
+    public:
+    int num;
+    Num(int n) : num(n) {} // Constructor to initialize num
+};
+
+Num operator ""N(unsigned long long n)
+{
+    return Num(n);
+}
+
+int main()
+{
+    Num n1 = 17N; // Using the user-defined literal operator
+    std::cout &lt;&lt; "Number from literal: " &lt;&lt; n1.num &lt;&lt; '\n'; // Output: Num: 17
+    return 0;
+}</code></pre>
+    </p>
+    <h2>An Actual use case of operator overloading:</h2>
+    <p>
+        Using operator overloading to implement a simple complex number class. <br>
+        <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+// a simple complex number class to demonstrate operator overloading
+// the class has been made to resemble C++ complex library as close as possible to demonstrate the power of operator overloading
+class Complex
+{
+    public:
+    float real, complex;
+    Complex(float x, float y) : real(x), complex(y) {}
+
+    // used to define basic operators
+    #define OPERATOR(op) \
+    Complex operator op(const Complex& other) const \
+    { \
+        return Complex(real + other.real, complex + other.complex); \
+    }
+
+    OPERATOR(+)
+    OPERATOR(-)
+    
+    #undef OPERATOR
+
+    // define multiplication among complex numbers
+    Complex operator *(const Complex& other) const
+    {
+        return Complex(real * other.real - complex * other.complex, real * other.complex + complex * other.real);
+    }
+    
+    // define division among complex numbers
+    Complex operator /(const Complex& other) const
+    {
+        float denom = other.real * other.real + other.complex * other.complex;
+        return Complex((real * other.real + complex * other.complex) / denom, (complex * other.real - real * other.complex) / denom);
+    }
+};
+
+// make the complex number literal operator, this creates the imaginary part of the complex number
+Complex operator ""i(long double y)
+{
+    return Complex(0, static_cast&lt;float&gt;(y));
+}
+
+// support addition of a real number with complex number as real + complex
+Complex operator +(double x, const Complex &c )
+{
+    return Complex(static_cast&lt;float&gt;(x) + c.real, c.complex);
+}
+
+// support subtraction of a real number with complex number as real + complex
+Complex operator -(double x, const Complex &c )
+{
+    return Complex(static_cast&lt;float&gt;(x) - c.real, -c.complex);
+}
+
+// overload the &lt;&lt; operator to print complex numbers in the form a + bi
+std::ostream& operator&lt;&lt;(std::ostream& os, const Complex& c)
+{
+    os &lt;&lt; c.real &lt;&lt; (c.complex >= 0 ? "+" : "") &lt;&lt; c.complex &lt;&lt; "i";
+    return os;
+}
+
+// driver code
+int main()
+{
+    Complex cmp1 = 1.0 + 2.0i;
+    Complex cmp2 = 3.0 - 4.0i;
+    std::cout &lt;&lt; "Complex sum: " &lt;&lt; cmp1 + cmp2 &lt;&lt; '\n'; // output: 4 - 2i
+    std::cout &lt;&lt; "Complex divide: " &lt;&lt; cmp1 / cmp2 &lt;&lt; '\n'; // output: -0.2 + 0.4i
+    return 0;
+}</code></pre>
+    </p>
+    <p>As you can see that the complex number class resembles the C++ complex library as close as possible. <br>
+        This is the power of operator overloading, it allows you to create custom data types that behave like built-in types, making your code more intuitive and easier to read.
+    </p>
+    </div>
+
+    <footer>
+        <p>
+            <a href="https://github.com/Rouvik"><img class="negDisplay" src="../../assets/github.svg" alt="Github"
+                    width="20" height="20"></a>
+            |
+            <a href="mailto:majirouvik@gmail.com"><span class="material-symbol">&#xe158;</span></a>
+        </p>
+    </footer>
+</body>
+<script src="../../assets/indexGen.js"></script>
+
+</html>
