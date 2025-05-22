@@ -450,7 +450,7 @@ class Complex
     #define OPERATOR(op) \
     Complex operator op(const Complex& other) const \
     { \
-        return Complex(real + other.real, complex + other.complex); \
+        return Complex(real op other.real, complex op other.complex); \
     }
 
     OPERATOR(+)
